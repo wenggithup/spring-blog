@@ -14,7 +14,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
        </dependency>
-   5、获取并使用路径变量（@PathVariable）和参数变量（@RequestParam）
+    5、获取并使用路径变量（@PathVariable）和参数变量（@RequestParam）
 ## 第二天（复习）
     1、建立db，用于数据交互（数据库weng，创建user（用户表），blog（博客表），comment（评论表）
     2、新建bean实体对象，对应数据库中的字段
