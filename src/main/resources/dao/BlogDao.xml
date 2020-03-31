@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.banyuan.springdemo.dao.BlogDao">
+    <select id="selectBlogByBlogId" resultType="com.banyuan.springdemo.bean.Blog">
+        select * from blog where id=#{id}
+    </select>
+
+    <select id="selectBlogListByUsername" resultType="com.banyuan.springdemo.bean.Blog">
+      select blog.* from blog join user on blog.user_id=user.id where user.name=#{username}
+    </select>
+
+</mapper>
