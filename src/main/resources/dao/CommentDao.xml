@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.banyuan.springdemo.dao.CommentDao">
+    <resultMap id="selectUser" type="com.banyuan.springdemo.bean.Comment" autoMapping="true" >
+        <id property="id" column="id"></id>
+        <association property="commenter" javaType="com.banyuan.springdemo.bean.User" autoMapping="true" columnPrefix="commenter_">
+            <id property="id" column="id"></id>
+        </association>
+
+    </resultMap>
+    <select id="selectCommentsByBlogId" resultMap="selectUser">
+        select
+        comment.id,comment.created_time,comment.content,
+        commenter.id as commenter_id,
+        commenter.name as commenter_name,
+        comment.blog_id
+        from comment
+        join user as commenter on comment.user_id=commenter.id
+        where blog_id=#{id}
+    </select>
+</mapper>

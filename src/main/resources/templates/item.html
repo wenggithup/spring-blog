@@ -125,11 +125,13 @@
               <p class="blog-post-meta">2015年2月3日 标签：<a href="#">Web开发</a></p>
               <p class="blog-post-content" th:text="${blog.content}">"${blog.content}"</p>
               -->
+
             <p>
-              <a href="#" th:text="${comment.userId}">"${comment.userId}",</a>
+              <a href="#" th:text="${comment.commenter.name}">"${comment.commenter.name}",</a>
               <span class="text-muted date" th:text="${comment.createdTime}"> "${comment.createdTime}"</span>
               <textarea disabled th:text="${comment.content}">"${comment.content}"</textarea>
             </p>
+
           </li>
           <li class="clearfix" th:remove="all">
             <img src="/img/catty.jpeg" alt="" class="avatar pull-left">

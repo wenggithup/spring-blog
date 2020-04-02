@@ -39,3 +39,5 @@
         mybatis.mapper-locations=classpath:dao/*.xml
     6、dao层定义对应方法，mybatis负责实现，通过用户名/blogid调用对应方法，由mybatis封装返回结果对象
        ，在控制层将对应的前台展示需要的字段放入modle域中
+
+## 第三天（复习）

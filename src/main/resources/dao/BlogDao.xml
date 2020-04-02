@@ -2,12 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.banyuan.springdemo.dao.BlogDao">
+    <!--通过blogid查找对应的博客内容-->
     <select id="selectBlogByBlogId" resultType="com.banyuan.springdemo.bean.Blog">
         select * from blog where id=#{id}
     </select>
 
-    <select id="selectBlogListByUsername" resultType="com.banyuan.springdemo.bean.Blog">
-      select blog.* from blog join user on blog.user_id=user.id where user.name=#{username}
+    <!--更新博客-->
+    <update id="updateBlog">
+        update blog set title=#{title},content=#{content} where id=#{id}
+    </update>
+    <!--通过blog id删除blog-->
+    <delete id="deleteBlogByBlogId">
+        delete from blog where id=#{blogId}
+    </delete>
+    <!--插入新blog-->
+    <insert id="insertBlogByCreate" parameterType="com.banyuan.springdemo.bean.Blog">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into blog(title,content,user_id)
+        values(#{title},#{content},#{author.id})
+    </insert>
+
+    <!--selectBlogListByUsername的resultmap-->
+    <resultMap id="selectBlogByUsername" type="com.banyuan.springdemo.bean.Blog" autoMapping="true">
+        <id property="id" column="id"></id>
+        <association property="author" javaType="com.banyuan.springdemo.bean.User" autoMapping="true" columnPrefix="author_">
+            <id property="id" column="id"></id>
+        </association>
+    </resultMap>
+    <!--通过username查询blog对象，仅需要user对象即可-->
+    <select id="selectBlogListByUsername" resultMap="selectBlogByUsername">
+      select
+      blog.id,blog.title,blog.content,blog.created_time,
+      author.id as author_id,
+      author.name as author_name,
+      author.email as author_email
+      from blog join
+      user as author
+      on blog.user_id=author.id where
+      author.name=#{username}
     </select>
 
+    <!--selectBlogDetailByBlogId 的resultMap-->
+    <resultMap id="BlogDetailByBlogId" type="com.banyuan.springdemo.bean.Blog" autoMapping="true">
+        <id property="id" column="id"></id>
+        <association property="author" javaType="com.banyuan.springdemo.bean.User" autoMapping="true" columnPrefix="author_">
+            <id property="id" column="id"></id>
+
+        </association>
+        <collection property="comments" ofType="com.banyuan.springdemo.bean.Comment" autoMapping="true" columnPrefix="comment_" >
+            <id property="id" column="id"></id>
+            <id property="createdTime" column="created_time"></id>
+            <association property="commenter" javaType="com.banyuan.springdemo.bean.User" autoMapping="true" columnPrefix="commenter_">
+                <id property="id" column="id"></id>
+            </association>
+        </collection>
+    </resultMap>
+    <!--通过blog id 查询Blog对象，含user，含comment对象-->
+    <select id="selectBlogDetailByBlogId" resultMap="BlogDetailByBlogId">
+        select blog.id,blog.title,blog.content,blog.created_time,
+               author.id as author_id,
+               author.name as author_name,
+               comment.id as comment_id ,
+               comment.content as comment_content,
+               comment.created_time as comment_created_time,
+               comment.user_id as comment_user_id,
+               comment.blog_id as comment_blog_id,
+               commenter.id as comment_commenter_id,
+               commenter.name as comment_commenter_name
+               from blog
+               join user as author on
+               blog.user_id=author.id
+               left join comment
+               on blog.id=comment.blog_id
+               left join user as commenter
+               on comment.user_id=commenter.id
+               where blog.id=#{id};
+    </select>
 </mapper>

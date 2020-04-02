@@ -21,4 +21,20 @@ public class BlogService {
     public List<Blog> findBlogListByUsername(String username) {
         return blogDao.selectBlogListByUsername(username);
     }
+
+    public Blog findBlogDetailByBlogId(Integer id) {
+        return blogDao.selectBlogDetailByBlogId (id);
+    }
+
+    public void insertBlogByCreate(Blog blog) {
+         blogDao.insertBlogByCreate(blog);
+    }
+
+    public void deleteBlogByBlogId(Integer blogId) {
+        blogDao.deleteBlogByBlogId(blogId);
+    }
+
+    public void updateBlog(String title, String content,Integer id) {
+         blogDao.updateBlog(title,content,id);
+    }
 }
