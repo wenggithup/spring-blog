@@ -2,6 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.banyuan.springdemo.dao.BlogDao">
+    <!-- 通过标题关键字查询blog -->
+    <select id="selectBlogByKeyword" resultMap="selectBlogByUsername">
+      select
+      blog.id,blog.title,blog.content,blog.created_time,
+      author.id as author_id,
+      author.name as author_name,
+      author.email as author_email
+      from blog join
+      user as author
+      on blog.user_id=author.id
+      where
+      blog.id like concat('%',#{keyword},'%')
+      or blog.title like concat('%',#{keyword},'%')
+      or blog.content like concat('%',#{keyword},'%')
+      or blog.created_time like concat('%',#{keyword},'%')
+    </select>
+
+    <!-- 查询所有博客，根据blog id升序 -->
+    <select id="selectAllBlog" resultMap="selectBlogByUsername">
+      select
+      blog.id,blog.title,blog.content,blog.created_time,
+      author.id as author_id,
+      author.name as author_name,
+      author.email as author_email
+      from blog join
+      user as author
+      on blog.user_id=author.id
+      order by blog.id desc
+    </select>
+
     <!--通过blogid查找对应的博客内容-->
     <select id="selectBlogByBlogId" resultType="com.banyuan.springdemo.bean.Blog">
         select * from blog where id=#{id}

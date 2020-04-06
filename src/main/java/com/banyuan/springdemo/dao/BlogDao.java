@@ -16,9 +16,17 @@ public interface BlogDao {
     //通过blog id返回 对应的comment对象和user对象
     Blog selectBlogDetailByBlogId(Integer id);
 
+    //创建博客
     void insertBlogByCreate(Blog blog);
 
+    //通过blogid删除blog
     void deleteBlogByBlogId(Integer blogId);
 
+    //更新blog
     void updateBlog(String title, String content,Integer id);
+
+    //查询所有blog集合，根据id
+    List<Blog> selectAllBlog();
+
+    List<Blog> selectBlogByKeyword(String keyword);
 }
