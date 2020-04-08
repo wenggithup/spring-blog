@@ -8,4 +8,5 @@ public interface UserDao {
     //根据用户姓名查找用户信息方法（测试，无页面渲染）
     User selectUserByUsername(String username);
 
+    void updateUser(Integer id, String avatar);
 }

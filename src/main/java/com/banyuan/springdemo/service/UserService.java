@@ -12,4 +12,8 @@ public class UserService {
     public User selectUserByUsername (String username){
         return userDao.selectUserByUsername (username);
     }
+
+    public void setUserByAvatar(Integer id, String avatar) {
+         userDao.updateUser(id,avatar);
+    }
 }

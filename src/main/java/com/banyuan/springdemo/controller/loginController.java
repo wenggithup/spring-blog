@@ -18,9 +18,10 @@ public class loginController {
     //登陆界面
     @GetMapping("/login")
     String loginShow(){
+
         return "login";
     }
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     String loginCheck(@RequestParam String username,
                       @RequestParam String password,
                       @RequestParam(required = false,value = "next") String next,
@@ -46,6 +47,6 @@ public class loginController {
             return "redirect:/login";
         }
 
-    }
+    }*/
 
 }

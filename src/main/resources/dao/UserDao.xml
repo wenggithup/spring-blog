@@ -5,5 +5,7 @@
     <select id="selectUserByUsername" resultType="com.banyuan.springdemo.bean.User">
         select * from user where name=#{username}
     </select>
-
+    <update id="updateUser">
+        update user set avatar=#{avatar} where id=#{id}
+    </update>
 </mapper>

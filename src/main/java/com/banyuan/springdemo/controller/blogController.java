@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -102,11 +103,12 @@ public class blogController {
     @PostMapping("blog/create")
     String insertBlogByCreate(@RequestParam(value = "title") String title,
                               @RequestParam(value = "content") String content,
-                              HttpSession session){
+                              Principal principal){
         //插入blog，并重定向到刚插入的博客
         Blog blog=new Blog ();
         //通过姓名返回user对象
-        User user =(User) session.getAttribute ("USER");
+        String name = principal.getName ();
+        User user =userService.selectUserByUsername (name);
         blog.setAuthor (user);
         blog.setTitle (title);
         blog.setContent (content);
@@ -116,9 +118,10 @@ public class blogController {
     //删除博客
     @DeleteMapping("blog/{blogId}")
     String deleteBlogByBlogId(@PathVariable(value = "blogId") Integer blogId,
-                              HttpSession session ){
+                              Principal principal ){
         //取出session中User
-        User user=(User)session.getAttribute ("USER");
+        String name = principal.getName ();
+        User user =userService.selectUserByUsername (name);
         Blog blog = blogService.findBlogDetailByBlogId (blogId);
         //，判断当前登陆用户和操作用户是否是同一个人
         if(user.getName ().equals (blog.getAuthor ().getName ())){
@@ -126,7 +129,7 @@ public class blogController {
             blogService.deleteBlogByBlogId(blogId);
         }
 
-        return "redirect:/admin";
+        return "redirect:/admin/blogs";
     }
 
     //编辑博客

@@ -14,4 +14,5 @@ public class User {
     private String name; //用户姓名
     private String password; //用户密码
     private String email; //用户email
+    private String avatar;//用户头像
 }

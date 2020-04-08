@@ -8,6 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class LoginInterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor (new loginInterceptor ()).addPathPatterns ("/blog/create","/admin");
+        //registry.addInterceptor (new loginInterceptor ()).addPathPatterns ("/blog/create","/admin");
     }
 }
