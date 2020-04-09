@@ -24,7 +24,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getPassword ();
+        return user.getName ();
     }
 
     @Override

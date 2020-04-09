@@ -6,6 +6,7 @@ import com.banyuan.springdemo.bean.User;
 import com.banyuan.springdemo.dao.BlogDao;
 import com.banyuan.springdemo.dao.CommentDao;
 import com.banyuan.springdemo.dao.UserDao;
+import com.banyuan.springdemo.service.EmailService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,11 +21,13 @@ public class SpringDemoApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context= SpringApplication.run (SpringDemoApplication.class, args);
         //CommentDao commentDao = context.getBean (CommentDao.class);
+        //EmailService email = context.getBean (EmailService.class);
+        //email.sendMailActive ("weng");
         //List<Comment> comments = commentDao.selectCommentsByBlogId (30);
         //System.out.println (comments);
         //System.out.println (blog.selectBlogListByUsername ("张三1"));
-        BlogDao blogDao = context.getBean (BlogDao.class);
-        Blog blog=new Blog ();
+        //BlogDao blogDao = context.getBean (BlogDao.class);
+        //Blog blog=new Blog ();
        // List<Blog> blogs = blogDao.selectBlogListByUsername ("张三97");
         //System.out.println (blogs);
         //blog.setContent ("123213213123");
